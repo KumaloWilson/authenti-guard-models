@@ -61,10 +61,14 @@ def rfpredict():
         # If shipping address does not match billing address, return fraudulent response
         return jsonify({'prediction': 'Fraudulent', 'reason': 'Shipping address does not match billing address'})
     
-    # Check if transaction amount is suspicious based on age
-    if (data['Transaction Amount'] > 1000) & (data['Customer Age'] < 25):
+    transaction_amount = float(data['Transaction Amount'])
+    customer_age = int(data['Customer Age'])
+
+    if (transaction_amount > 1000) & (customer_age < 25):
         # If transaction amount is suspicious based on age, return fraudulent response
         return jsonify({'prediction': 'Fraudulent', 'reason': 'Suspicious transaction amount based on age'})
+
+
     
 
     # Manual label encoding for categorical features
